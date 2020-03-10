@@ -82,11 +82,11 @@ class General(commands.Cog, name='General'):
         # Ignore messages sent by bots
         if msg.author.bot:
             return
-        # TODO -- add listener for private bots here
-        # if isinstance(msg.channel, DMChannel):
-        #     return
-        # if self.client.user_is_ignored(msg.author):
-        #     return
+        if self.client.config['allow_dm'] != True:
+            if isinstance(msg.channel, DMChannel):
+                return
+            if self.client.user_is_ignored(msg.author):
+                return
 
         if re.search(r'(?i).*quack.*', msg.content):
             await msg.channel.send(self.get_quack_string())

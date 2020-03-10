@@ -88,11 +88,11 @@ async def on_ready():
 
 @client.event
 async def on_message(msg):
-    # TODO - Add hook for private channel
-    # if isinstance(msg.channel, DMChannel):
-    #     return
-    # if client.user_is_ignored(msg.author):
-    #     return
+    if client.config['allow_dm'] != True:
+        if isinstance(msg.channel, DMChannel):
+            return
+        if client.user_is_ignored(msg.author):
+            return
     await client.process_commands(msg)
 
 
